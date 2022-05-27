@@ -118,7 +118,7 @@ export default function SignupForm(props: any): ReactElement {
 									helperText={fieldErrors.confirmPassword}
 									required
 									fullWidth
-									name="confrimPassword"
+									name="confirmPassword"
 									label="Confirm Password"
 									type="password"
 									id="password"
