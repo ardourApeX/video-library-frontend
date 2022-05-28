@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import SignupForm from "../MUI/SignupForm/SignupForm";
+import SignupForm from "../../components/MUI/SignupForm/SignupForm";
 import { signupFormHandler } from "../../handlers/signupFormHandler";
 
 function apiCall() {

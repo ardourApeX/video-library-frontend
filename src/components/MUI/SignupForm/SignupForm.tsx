@@ -46,6 +46,7 @@ export default function SignupForm(props: any): ReactElement {
 		password: "",
 		confirmPassword: "",
 	});
+	const [passwordVisibilty, setPasswordVisibility] = useState(false);
 	const { handleSubmit } = props;
 
 	return (
@@ -107,7 +108,7 @@ export default function SignupForm(props: any): ReactElement {
 									fullWidth
 									name="password"
 									label="Password"
-									type="password"
+									type={passwordVisibilty ? "text" : "password"}
 									id="password"
 									autoComplete="new-password"
 								/>
@@ -120,7 +121,7 @@ export default function SignupForm(props: any): ReactElement {
 									fullWidth
 									name="confirmPassword"
 									label="Confirm Password"
-									type="password"
+									type={passwordVisibilty ? "text" : "password"}
 									id="password"
 									autoComplete="new-password"
 								/>
@@ -128,7 +129,11 @@ export default function SignupForm(props: any): ReactElement {
 							<Grid style={{ textAlign: "left" }} item xs={12}>
 								<FormControlLabel
 									control={
-										<Checkbox value="allowExtraEmails" color="primary" />
+										<Checkbox
+											onChange={() => setPasswordVisibility(!passwordVisibilty)}
+											value="allowExtraEmails"
+											color="primary"
+										/>
 									}
 									label="Show Password"
 								/>

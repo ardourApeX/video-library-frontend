@@ -1,4 +1,4 @@
-import publicRoutes from "../components/index";
+import publicRoutes from "../pages/index";
 import { Route, Routes } from "react-router-dom";
 import { ReactElement } from "react";
 
