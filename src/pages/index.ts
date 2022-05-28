@@ -1,4 +1,5 @@
 import SignUp from "./Signup/Signup";
+import Login from "./Login/Login";
 import { ReactElement } from "react";
 
 interface IPublicRoutes {
@@ -9,6 +10,10 @@ const publicRoutes: Array<IPublicRoutes> = [
 	{
 		path: "/signup",
 		element: SignUp(),
+	},
+	{
+		path: "/login",
+		element: Login(),
 	},
 ];
 
