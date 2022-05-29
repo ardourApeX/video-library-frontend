@@ -12,7 +12,7 @@ function passwordValidators(
 	// Match regex expression with password
 	// Also match confirmPassword if it exists
 	if (passwordRegex.test(password)) {
-		if (confirmPassword) {
+		if (confirmPassword !== undefined) {
 			if (confirmPassword === password) {
 				return { success: true };
 			} else {
