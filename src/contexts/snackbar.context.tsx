@@ -36,7 +36,8 @@ export function snackbarReducer(state: IInitalState, action: IAction) {
 		case "CLOSE":
 			return {
 				...state,
-				...initialState,
+				open: false,
+				message: "",
 			};
 
 		default:
