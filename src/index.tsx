@@ -10,11 +10,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
 	<React.StrictMode>
-		<SnackbarProvider>
-			<Router>
+		<Router>
+			<SnackbarProvider>
 				<App />
-			</Router>
-		</SnackbarProvider>
+			</SnackbarProvider>
+		</Router>
 	</React.StrictMode>
 );
 
