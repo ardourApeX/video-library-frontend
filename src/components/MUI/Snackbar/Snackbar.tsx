@@ -15,20 +15,20 @@ export default function CustomizedSnackbars() {
 	const { snackbarState, snackbarDispatch } = useSnackbar();
 	return (
 		<Stack spacing={2} sx={{ width: "100%" }}>
-			<Button
+			{/* <Button
 				variant="outlined"
 				onClick={() =>
 					snackbarDispatch({
 						type: "OPEN",
 						payload: {
 							message: "This is a success message!",
-							severity: "success",
+							severity: "error",
 						},
 					})
 				}
 			>
 				Open success snackbar
-			</Button>
+			</Button> */}
 			<Snackbar
 				open={snackbarState.open}
 				autoHideDuration={snackbarState.duration}
