@@ -1,8 +1,4 @@
-import {
-	ISignupFormError,
-	ISignupCallback,
-	ISignupDetails,
-} from "../types/SignupForm";
+import { ISignupFormError, ISignupCallback } from "../types/SignupForm";
 import { signupFormValidator } from "../validators/signupFormValidator";
 
 function signupFormHandler(callback: Function): ISignupCallback {

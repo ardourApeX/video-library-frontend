@@ -16,11 +16,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSnackbar } from "../../../contexts/snackbar.context";
-import {
-	ISignupFormError,
-	ISignupCallback,
-	ISignupDetails,
-} from "../../../types/SignupForm";
+import { ISignupFormError } from "../../../types/SignupForm";
 
 interface IProps {
 	handleSubmit: (
