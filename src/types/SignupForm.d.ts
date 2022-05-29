@@ -4,10 +4,14 @@ interface ISignupDetails {
 	password: string;
 }
 
-interface ISignupFormError {
-	password: string;
-	email: string;
-	name: string;
+interface ISignupFormError extends ISignupDetails {
 	confirmPassword: string;
 }
-export { ISignupDetails, IPasswordStatus, ISignupFormError };
+interface ISignupCallback {
+	(
+		event: React.FormEvent<HTMLFormElement>,
+		setFieldErrors: React.Dispatch<React.SetStateAction<ISignupFormError>>,
+		snackbarDispatch: Function
+	): Promise<void>;
+}
+export { ISignupDetails, ISignupFormError, ISignupCallback };

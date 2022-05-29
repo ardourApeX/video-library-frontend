@@ -1,10 +1,15 @@
-import { ISignupFormError } from "../types/SignupForm";
+import {
+	ISignupFormError,
+	ISignupCallback,
+	ISignupDetails,
+} from "../types/SignupForm";
 import { signupFormValidator } from "../validators/signupFormValidator";
 
-function signupFormHandler(callback: Function): Function {
+function signupFormHandler(callback: Function): ISignupCallback {
 	return async function (
 		event: React.FormEvent<HTMLFormElement>,
-		setError: React.Dispatch<React.SetStateAction<ISignupFormError>>
+		setError: React.Dispatch<React.SetStateAction<ISignupFormError>>,
+		snackbarDispatch: Function
 	) {
 		event.preventDefault();
 		const data = new FormData(event!.currentTarget);
@@ -27,7 +32,7 @@ function signupFormHandler(callback: Function): Function {
 				confirmPassword: "",
 			});
 			//TODO: Call the API
-			callback();
+			callback({ name, email, password }, snackbarDispatch);
 		}
 	};
 }

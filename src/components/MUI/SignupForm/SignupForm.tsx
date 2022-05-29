@@ -15,8 +15,20 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { ISignupFormError } from "../../../types/SignupForm";
+import { useSnackbar } from "../../../contexts/snackbar.context";
+import {
+	ISignupFormError,
+	ISignupCallback,
+	ISignupDetails,
+} from "../../../types/SignupForm";
 
+interface IProps {
+	handleSubmit: (
+		event: React.FormEvent<HTMLFormElement>,
+		setFieldErrors: React.Dispatch<React.SetStateAction<ISignupFormError>>,
+		snackbarDispatch: Function
+	) => void;
+}
 //TODO :
 //1. Change href for credits
 function Copyright(props: any) {
@@ -39,7 +51,7 @@ function Copyright(props: any) {
 
 const theme = createTheme();
 
-export default function SignupForm(props: any): ReactElement {
+export default function SignupForm(props: IProps): ReactElement {
 	const [fieldErrors, setFieldErrors] = useState<ISignupFormError>({
 		name: "",
 		email: "",
@@ -48,7 +60,7 @@ export default function SignupForm(props: any): ReactElement {
 	});
 	const [passwordVisibilty, setPasswordVisibility] = useState(false);
 	const { handleSubmit } = props;
-
+	const { snackbarDispatch } = useSnackbar();
 	return (
 		<ThemeProvider theme={theme}>
 			<Container component="main" maxWidth="xs">
@@ -71,7 +83,7 @@ export default function SignupForm(props: any): ReactElement {
 						component="form"
 						noValidate
 						onSubmit={(event: React.FormEvent<HTMLFormElement>) =>
-							handleSubmit(event, setFieldErrors)
+							handleSubmit(event, setFieldErrors, snackbarDispatch)
 						}
 						sx={{ mt: 3 }}
 					>
