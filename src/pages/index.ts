@@ -2,18 +2,14 @@ import SignUp from "./Signup/Signup";
 import Login from "./Login/Login";
 import { ReactElement } from "react";
 
-interface IPublicRoutes {
-	path: string;
-	element: ReactElement;
-}
-const publicRoutes: Array<IPublicRoutes> = [
+const publicRoutes: Array<any> = [
 	{
 		path: "/signup",
-		element: SignUp(),
+		Component: SignUp,
 	},
 	{
 		path: "/login",
-		element: Login(),
+		Component: Login,
 	},
 ];
 
