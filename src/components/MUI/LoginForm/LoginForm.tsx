@@ -15,6 +15,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useSnackbar } from "../../../contexts/snackbar.context";
 import { ILoginDetails } from "../../../types/LoginForm";
 
 //TODO :
@@ -38,13 +39,22 @@ function Copyright(props: any) {
 }
 
 const theme = createTheme();
+interface IProps {
+	handleSubmit: (
+		event: React.FormEvent<HTMLFormElement>,
+		setFieldErrors: React.Dispatch<React.SetStateAction<ILoginDetails>>,
+		snackbarDispatch: Function
+	) => void;
+}
 
-export default function LoginForm(props: any): ReactElement {
+export default function LoginForm(props: IProps): ReactElement {
 	const [fieldErrors, setFieldErrors] = useState<ILoginDetails>({
 		email: "",
 		password: "",
 	});
 	const [passwordVisibilty, setPasswordVisibility] = useState(false);
+	const { snackbarDispatch } = useSnackbar();
+
 	const { handleSubmit } = props;
 
 	return (
@@ -69,7 +79,7 @@ export default function LoginForm(props: any): ReactElement {
 						component="form"
 						noValidate
 						onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
-							handleSubmit(event, setFieldErrors);
+							handleSubmit(event, setFieldErrors, snackbarDispatch);
 						}}
 						sx={{ mt: 3 }}
 					>

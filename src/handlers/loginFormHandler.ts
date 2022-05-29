@@ -1,14 +1,15 @@
-import { ILoginDetails } from "../types/LoginForm";
+//Types and Validators
+import { ILoginDetails, ILoginCallback } from "../types/LoginForm";
 import { loginFormValidator } from "../validators/LoginFormValidator";
 
-function loginFormHandler(callback: Function): Function {
+function loginFormHandler(callback: Function): ILoginCallback {
 	return async function (
 		event: React.FormEvent<HTMLFormElement>,
-		setError: React.Dispatch<React.SetStateAction<ILoginDetails>>
+		setError: React.Dispatch<React.SetStateAction<ILoginDetails>>,
+		snackbarDispatch: Function
 	) {
 		event.preventDefault();
 		const data = new FormData(event!.currentTarget);
-
 		//Making sure these are strings
 		const password = `${data.get("password")}`;
 		const email = `${data.get("email")}`;
@@ -23,7 +24,7 @@ function loginFormHandler(callback: Function): Function {
 				password: "",
 			});
 			//TODO: Call the API
-			callback();
+			callback({ email, password }, snackbarDispatch);
 		}
 	};
 }

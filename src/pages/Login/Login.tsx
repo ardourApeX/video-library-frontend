@@ -1,23 +1,14 @@
+//Components and Types
 import LoginForm from "../../components/MUI/LoginForm/LoginForm";
+import { ILoginCallback } from "../../types/LoginForm";
+
+//Handlers and Helpers
 import { loginFormHandler } from "../../handlers/loginFormHandler";
-import { useSnackbar } from "../../contexts/snackbar.context";
-function apiCall(snackbarDispatch: Function) {
-	console.log("Yes api call has been invoked");
-	snackbarDispatch({
-		type: "OPEN",
-		payload: {
-			message: "This is a success message!",
-			severity: "success",
-			duration: 2000,
-		},
-	});
-}
+import loginRequest from "../../helpers/Login/loginRequest";
 
 export default function Login(): JSX.Element {
 	//Creating a closure to handle the form submission
-	const { snackbarDispatch } = useSnackbar();
-
-	const handleSubmit = loginFormHandler(() => apiCall(snackbarDispatch));
+	const handleSubmit: ILoginCallback = loginFormHandler(loginRequest);
 
 	return (
 		<>
