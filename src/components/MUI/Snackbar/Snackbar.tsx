@@ -1,6 +1,5 @@
 import * as React from "react";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { useSnackbar } from "../../../contexts/snackbar.context";
@@ -15,20 +14,6 @@ export default function CustomizedSnackbars() {
 	const { snackbarState, snackbarDispatch } = useSnackbar();
 	return (
 		<Stack spacing={2} sx={{ width: "100%" }}>
-			{/* <Button
-				variant="outlined"
-				onClick={() =>
-					snackbarDispatch({
-						type: "OPEN",
-						payload: {
-							message: "This is a success message!",
-							severity: "error",
-						},
-					})
-				}
-			>
-				Open success snackbar
-			</Button> */}
 			<Snackbar
 				open={snackbarState.open}
 				autoHideDuration={snackbarState.duration}

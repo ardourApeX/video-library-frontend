@@ -31,6 +31,7 @@ export function snackbarReducer(state: IInitalState, action: IAction) {
 				open: true,
 				message: action.payload.message,
 				severity: action.payload.severity,
+				duration: action.payload?.duration || 6000,
 			};
 		case "CLOSE":
 			return {

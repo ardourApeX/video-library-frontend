@@ -1,6 +1,5 @@
 import SignUp from "./Signup/Signup";
 import Login from "./Login/Login";
-import { ReactElement } from "react";
 
 const publicRoutes: Array<any> = [
 	{
