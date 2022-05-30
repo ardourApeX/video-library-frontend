@@ -1,4 +1,4 @@
-import { createContext, useReducer, useContext } from "react";
+import React, { createContext, useReducer, useContext } from "react";
 interface IInitalState {
 	open: boolean;
 	message: string;
@@ -13,7 +13,7 @@ const initialState: IInitalState = {
 	open: false,
 	message: "",
 	severity: "success",
-	duration: 6000,
+	duration: 2000,
 };
 
 const SnackbarContext = createContext<{
@@ -26,13 +26,23 @@ const SnackbarContext = createContext<{
 export function snackbarReducer(state: IInitalState, action: IAction) {
 	switch (action.type) {
 		case "OPEN":
-			return {
-				...state,
-				open: true,
-				message: action.payload.message,
-				severity: action.payload.severity,
-				duration: action.payload?.duration || 6000,
-			};
+			if (action.payload.duration) {
+				return {
+					...state,
+					open: true,
+					message: action.payload.message,
+					severity: action.payload.severity,
+					duration: action.payload.duration,
+				};
+			} else {
+				return {
+					...state,
+					open: true,
+					message: action.payload.message,
+					severity: action.payload.severity,
+				};
+			}
+
 		case "CLOSE":
 			return {
 				...state,

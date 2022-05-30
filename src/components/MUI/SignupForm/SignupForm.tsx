@@ -1,4 +1,5 @@
 //React
+import React from "react";
 import { ReactElement, useState } from "react";
 import style from "./signupForm.module.css";
 //MUI Components
@@ -16,7 +17,7 @@ interface IProps {
 //TODO :
 //1. Change href for credits
 
-export default function SignupForm(props: IProps): ReactElement {
+export default function SignupForm(props: IProps): JSX.Element {
 	const [fieldErrors, setFieldErrors] = useState<ISignupFormError>({
 		name: "",
 		email: "",
