@@ -1,0 +1,12 @@
+.otpCard {
+	border-radius: 14px;
+	padding: 4px;
+	padding-bottom: 20px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.otp {
+	background: none;
+}
+.OTP_otp__1hHGQ input* {
+	background-color: red !important;
+}
