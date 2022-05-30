@@ -1,16 +1,29 @@
-import { ReactElement } from "react";
+import { ReactElement, useState, useEffect } from "react";
 import SignupForm from "../../components/MUI/SignupForm/SignupForm";
-import { signupFormHandler } from "../../handlers/signupFormHandler";
 import signupRequest from "../../helpers/Signup/signupRequest";
-import { ISignupCallback } from "../../types/SignupForm";
-
+import { useSnackbar } from "../../contexts/snackbar.context";
+import { ISignupDetails } from "../../types/SignupForm";
 export default function SignUp(): ReactElement {
-	//Creating a closure to handle the form submission
-	const handleSubmit: ISignupCallback = signupFormHandler(signupRequest);
-
+	const [signupDetails, setSignupDetails] = useState<
+		ISignupDetails | undefined
+	>(undefined);
+	const [isSignupSuccess, setIsSignupSuccess] = useState(false);
+	const { snackbarDispatch } = useSnackbar();
+	useEffect(() => {
+		async function makeAPICall() {
+			if (signupDetails) {
+				const response = await signupRequest(signupDetails, snackbarDispatch);
+				if (response.success) {
+					setIsSignupSuccess(true);
+				}
+			}
+		}
+		makeAPICall();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [signupDetails]);
 	return (
-		<>
-			<SignupForm handleSubmit={handleSubmit} />
-		</>
+		<div className="parent-page">
+			{!isSignupSuccess && <SignupForm setSignupDetails={setSignupDetails} />}
+		</div>
 	);
 }

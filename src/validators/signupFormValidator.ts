@@ -9,7 +9,7 @@ function signupFormValidator(
 	password: string,
 	email: string,
 	name: string,
-	confirmPassword?: string
+	confirmPassword: string
 ): { anyError: boolean; issues: ISignupFormError } {
 	var issues: ISignupFormError = {
 		name: "",
@@ -40,4 +40,4 @@ function signupFormValidator(
 	}
 	return { anyError, issues };
 }
-export { signupFormValidator };
+export default signupFormValidator;
