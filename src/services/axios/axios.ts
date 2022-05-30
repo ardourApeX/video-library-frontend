@@ -6,7 +6,7 @@ export const api = axios.create({
 		Accept: "application/json",
 		"Content-Type": "application/json",
 	},
-	withCredentials: false,
+	withCredentials: true,
 	timeout: 2000,
 	cancelToken: axios.CancelToken.source().token,
 });
