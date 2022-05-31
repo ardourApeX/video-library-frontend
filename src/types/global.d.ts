@@ -1,10 +1,10 @@
 interface IServerResponse {
-	success: number;
+	success: boolean;
 	message: string;
 	data: Array<any> | undefined;
 }
 interface IServerError {
-	success: number;
+	success: boolean;
 	message: string;
 }
 export { IServerResponse, IServerError };
