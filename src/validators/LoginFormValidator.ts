@@ -5,7 +5,7 @@ import emailValidator from "../helpers/validateEmail.helper";
 //Interfaces
 import { ILoginDetails } from "../types/LoginForm";
 
-function loginFormValidator(
+export default function loginFormValidator(
 	password: string,
 	email: string
 ): { anyError: boolean; issues: ILoginDetails } {
