@@ -46,6 +46,12 @@ export default function SignupForm(props: IProps): JSX.Element {
 		if (validationResult.anyError) {
 			setFieldErrors(validationResult.issues);
 		} else {
+			setFieldErrors({
+				name: "",
+				email: "",
+				password: "",
+				confirmPassword: "",
+			});
 			setSignupDetails({
 				name,
 				email,
@@ -60,7 +66,7 @@ export default function SignupForm(props: IProps): JSX.Element {
 			opacity: 0,
 		});
 		TweenMax.to(signupComp, 0.7, {
-			y: 0,
+			y: -20,
 			opacity: 1,
 			ease: Power3.easeIn,
 		});

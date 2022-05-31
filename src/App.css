@@ -18,3 +18,11 @@ body {
 	height: 100vh;
 	background-color: var(--light-bg-color) !important;
 }
+.parent-page {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	overflow-y: scroll;
+}
