@@ -1,7 +1,8 @@
 //React
-import React from "react";
-import { ReactElement, useState } from "react";
+import React, { useEffect } from "react";
+import { useState, useRef } from "react";
 import style from "./signupForm.module.css";
+import { TweenMax, Power3 } from "gsap";
 //MUI Components
 import * as mui from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -14,8 +15,6 @@ interface IProps {
 		React.SetStateAction<ISignupDetails | undefined>
 	>;
 }
-//TODO :
-//1. Change href for credits
 
 export default function SignupForm(props: IProps): JSX.Element {
 	const [fieldErrors, setFieldErrors] = useState<ISignupFormError>({
@@ -26,6 +25,7 @@ export default function SignupForm(props: IProps): JSX.Element {
 	});
 	const [passwordVisibilty, setPasswordVisibility] = useState(false);
 	const { setSignupDetails } = props;
+	let signupComp = useRef(null);
 
 	//This function is to manage states from parent and child component validations
 	function handleClick(event: React.FormEvent<HTMLFormElement>): void {
@@ -54,8 +54,27 @@ export default function SignupForm(props: IProps): JSX.Element {
 		}
 	}
 
+	useEffect(() => {
+		TweenMax.from(signupComp, 0.5, {
+			y: 200,
+			opacity: 0,
+		});
+		TweenMax.to(signupComp, 0.7, {
+			y: 0,
+			opacity: 1,
+			ease: Power3.easeIn,
+		});
+	}, []);
+
 	return (
-		<mui.Container className={style.signupCard} component="main" maxWidth="xs">
+		<mui.Container
+			ref={(el) => {
+				signupComp = el;
+			}}
+			className={style.signupCard}
+			component="main"
+			maxWidth="xs"
+		>
 			<mui.CssBaseline />
 			<mui.Box
 				sx={{
@@ -165,8 +184,8 @@ export default function SignupForm(props: IProps): JSX.Element {
 				align="center"
 			>
 				{"Copyright © "}
-				<mui.Link color="inherit" href="https://mui.com/">
-					Video Library
+				<mui.Link color="inherit" href="https://github.com/ardourApeX">
+					Joy Gupta
 				</mui.Link>{" "}
 				{new Date().getFullYear()}
 				{"."}
