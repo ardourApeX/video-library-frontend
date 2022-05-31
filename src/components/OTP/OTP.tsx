@@ -1,17 +1,35 @@
 //React
-import React, { useEffect } from "react";
-import { ReactElement, useState } from "react";
+import React, { useEffect, useRef } from "react";
+import { TweenMax, Power3 } from "gsap";
+import { useState } from "react";
 import style from "./OTP.module.css";
-//MUI Components
-import * as mui from "@mui/material";
+import { NavigateFunction, useNavigate } from "react-router-dom";
+import { useSnackbar } from "../../contexts/snackbar.context";
 import SecurityIcon from "@mui/icons-material/Security";
 import OTPInput from "otp-input-react";
+import verifyOTP from "../../helpers/OTP/verifyOTP";
+import requestOTP from "../../helpers/OTP/requestOTP";
+//MUI Components
+import * as mui from "@mui/material";
 
 export default function OTP(props: { email: string }): JSX.Element {
 	//This function is to manage states from parent and child component validations
-	const [OTP, setOTP] = useState("");
-	const [timer, setTimer] = useState(30);
+	const [OTP, setOTP] = useState<string>("");
+	const [timer, setTimer] = useState(60);
 	const [disableResend, setDisableResend] = useState(true);
+	const navigate = useNavigate();
+	const { snackbarDispatch } = useSnackbar();
+	let otpComp = useRef(null);
+
+	async function handleClick() {
+		const result = await verifyOTP(props.email, OTP, snackbarDispatch);
+		if (result.success) {
+			navigate("/");
+		} else {
+			setOTP("");
+		}
+	}
+
 	useEffect(() => {
 		let timerRef;
 		if (timer > 0) {
@@ -25,8 +43,27 @@ export default function OTP(props: { email: string }): JSX.Element {
 		return () => clearInterval(timerRef);
 	}, [timer]);
 
+	useEffect(() => {
+		TweenMax.from(otpComp, 0.5, {
+			y: 200,
+			opacity: 0,
+		});
+		TweenMax.to(otpComp, 0.7, {
+			y: 0,
+			opacity: 1,
+			ease: Power3.easeIn,
+		});
+	}, []);
+
 	return (
-		<mui.Container className={style.otpCard} component="main" maxWidth="xs">
+		<mui.Container
+			ref={(elem) => {
+				otpComp = elem;
+			}}
+			className={style.otpCard}
+			component="main"
+			maxWidth="xs"
+		>
 			<mui.CssBaseline />
 			<mui.Box
 				sx={{
@@ -56,7 +93,7 @@ export default function OTP(props: { email: string }): JSX.Element {
 					Enter OTP sent to your email
 				</mui.Typography>
 
-				<mui.Box component="form" noValidate sx={{ mt: 3 }}>
+				<mui.Box sx={{ mt: 3 }}>
 					<mui.Grid container spacing={2}>
 						<mui.Grid style={{ textAlign: "left" }} item xs={12}>
 							<OTPInput
@@ -87,6 +124,7 @@ export default function OTP(props: { email: string }): JSX.Element {
 					}
 					<mui.Button
 						disabled={OTP.length !== 6}
+						onClick={handleClick}
 						type="submit"
 						fullWidth
 						variant="contained"
@@ -96,6 +134,10 @@ export default function OTP(props: { email: string }): JSX.Element {
 					</mui.Button>
 					<mui.Button
 						disabled={disableResend}
+						onClick={() => {
+							setTimer(60);
+							requestOTP(props.email, snackbarDispatch);
+						}}
 						type="submit"
 						fullWidth
 						variant="outlined"
